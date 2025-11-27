@@ -10,7 +10,8 @@ namespace asher {
 	class SPSCQ {
 		using traits = std::allocator_traits<std::allocator<T>>;
 		public:
-			explicit SPSCQ (std::size_t capacity) {
+			explicit SPSCQ (std::size_t capacity) : head_(0), tail_(0) {
+				if(!isPow2(capacity)) throw std::runtime_error("[SPSCQ] invalid capacity");
 				std::cout << "[SPSCQ] constructed\n";
 			}
 			~SPSCQ () {
@@ -38,6 +39,12 @@ namespace asher {
 			char pad1[64];
 			alignas(64) std::atomic<std::size_t> tail_{0};
 			char pad2[64];
+			T* data_ = nullptr;
+
+			bool isPow2 (const std::size_t& capacity) {
+				if(capacity > 1 && ( (capacity & (capacity -1)) == 0) ) return true;
+				return false;
+			}
 
 	};
 } 
