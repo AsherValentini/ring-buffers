@@ -1,2 +1,7 @@
 # ring-buffers
-I want to investigate the efficiency of different ring buffer setups. How does false sharing on seperate cores for producers and consumers impact performance? Does branch prediction errors cause serious issues?
+Latency investigation.
+  - cache line bouncing
+  - false sharing
+  - RMW semantics
+  - cycles per op
+  - instructions per op 
