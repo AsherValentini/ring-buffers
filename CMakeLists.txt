@@ -6,6 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(include) 
 add_executable(prog
-	src/main.cpp
+	src/bench.cpp
 )
 

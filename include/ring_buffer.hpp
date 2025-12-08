@@ -33,7 +33,7 @@ namespace asher {
 			SPSCQ (const SPSCQ&) = delete;
 			SPSCQ& operator=(SPSCQ&) = delete;
 			SPSCQ (SPSCQ&&) = delete;
-			SPSCQ operator=(SPSCQ&&) = delete;
+			SPSCQ& operator=(SPSCQ&&) = delete;
 
 			bool push(const T& item) {
 				std::size_t head = head_.load(std::memory_order_relaxed);
@@ -84,9 +84,11 @@ namespace asher {
 		private:
 			// we will pad the atomics to avoid false sharing and then later force false sharing
 			alignas(64) std::atomic<std::size_t> head_{0};
-			//char pad1[64];
+			//std::atomic<std::size_t> head_{0};
+			char pad1[64];
 			alignas(64) std::atomic<std::size_t> tail_{0};
-			//char pad2[64];
+			//std::atomic<std::size_t> tail_{0};
+			char pad2[64];
 			T* data_ = nullptr;
 			std::size_t capacity_;
 			std::size_t mask_;
